@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.accenture.PrimoProgettoSpring.bean.Computer;
 import com.accenture.PrimoProgettoSpring.bean.Persona;
 import com.accenture.PrimoProgettoSpring.config.AppConfig;
+import com.accenture.PrimoProgettoSpring.repository.PersonaRepository;
 
 @Component
 public class ProvaRunner implements CommandLineRunner {
@@ -18,11 +19,14 @@ public class ProvaRunner implements CommandLineRunner {
     private Persona p;
 
     @Autowired(required = false) // required false serve perchè se non trova la persona cercata, non va in eccezione
-    @Qualifier("Francesco")
+    @Qualifier("Francesca")
     private Persona p2;
 
     @Autowired
     private Computer computer;
+
+    @Autowired
+    private PersonaRepository personaRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -31,6 +35,24 @@ public class ProvaRunner implements CommandLineRunner {
         System.out.println( p2);
 
         System.out.println(computer);
+
+        //personaRepository.save(p);
+
+        //personaRepository.save(p2);
+
+        System.out.println(personaRepository.count());
+
+        System.out.println(personaRepository.findAll());
+
+        //System.out.println(personaRepository.findById(1).orElseThrow());
+
+        //personaRepository.deleteById(1);
+
+        personaRepository.findByNome("Roberto").forEach(p->System.out.println(p));
+
+        personaRepository.findByNomeLikeOrderByCognome("%a").forEach(p->System.out.println(p));
+
+        personaRepository.cercaPersonaPerNome("%a").forEach(p->System.out.println(p));
         
     }
     
