@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.accenture.PrimoProgettoSpring.bean.Computer;
 import com.accenture.PrimoProgettoSpring.bean.Persona;
 import com.accenture.PrimoProgettoSpring.config.AppConfig;
+import com.accenture.PrimoProgettoSpring.repository.ComputerRepository;
 import com.accenture.PrimoProgettoSpring.repository.PersonaRepository;
 
 @Component
@@ -27,6 +28,9 @@ public class ProvaRunner implements CommandLineRunner {
 
     @Autowired
     private PersonaRepository personaRepository;
+
+    @Autowired
+    private ComputerRepository computerRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -53,6 +57,10 @@ public class ProvaRunner implements CommandLineRunner {
         personaRepository.findByNomeLikeOrderByCognome("%a").forEach(p->System.out.println(p));
 
         personaRepository.cercaPersonaPerNome("%a").forEach(p->System.out.println(p));
+
+        computer.setPersona(p);
+
+        computerRepository.save(computer);
         
     }
     

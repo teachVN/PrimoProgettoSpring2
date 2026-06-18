@@ -14,7 +14,7 @@ public interface PersonaRepository extends JpaRepository<Persona,Integer>{
 
     public List<Persona> findByNomeLikeOrderByCognome(String nome);
 
-    @Query("select p from Persona p where p.nome like :nome")
+    @Query(value = "select * from persone p where p.nome like :nome", nativeQuery = true)
     public List<Persona> cercaPersonaPerNome(String nome);
     
 }
